@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Russell Train AR</title>
+    <script>
+        function checkLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    let userLat = position.coords.latitude;
+                    let userLon = position.coords.longitude;
+
+                    let targetLat = 45.2594;  // Your lat
+                    let targetLon = -75.3603; // Your lon
+                    let threshold = 0.0005;  // Approx 55 meters accuracy
+
+                    let latDiff = Math.abs(userLat - targetLat);
+                    let lonDiff = Math.abs(userLon - targetLon);
+
+                    if (latDiff < threshold && lonDiff < threshold) {
+                        document.getElementById("ar-container").style.display = "block";
+                    } else {
+                        alert("You need to be at the correct location to view this AR experience.");
+                    }
+                }, function(error) {
+                    alert("Please enable location services to use this feature.");
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+    </script>
+</head>
+<body onload="checkLocation()">
+    <h1>Russell Train AR Experience</h1>
+    <div id="ar-container" style="display:none;">
+        <a href="https://go.echo3d.co/6gLk" target="_blank">
+            <button>View in AR</button>
+        </a>
+    </div>
+</body>
+</html>
